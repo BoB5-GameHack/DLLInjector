@@ -4,7 +4,7 @@
 #include <TlHelp32.h>
 
 #define TARGET L"S1GameProtected.exe"
-#define DLL_PATH L"HackDLL.dll"
+#define DLL_PATH L"D:\\HackDLL.dll"
 
 typedef struct Param {
 	FARPROC loadLibrary;
