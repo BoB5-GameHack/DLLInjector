@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 
-#define TARGET L"S1GameProtected.exe"
+#define TARGET L"Examples.exe"
 #define DLL_PATH L"D:\\HackDLL.dll"
 
 typedef struct Param {
