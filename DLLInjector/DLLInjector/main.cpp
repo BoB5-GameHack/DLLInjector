@@ -4,8 +4,11 @@
 #include <TlHelp32.h>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define TARGET L"S1GameProtected.exe"
 =======
+=======
+>>>>>>> d85adfbeea761b6db2c5b0d52602bafb30e1995c
 #define TARGET L"Examples.exe"
 #define DLL_PATH L"D:\\HackDLL.dll"
 >>>>>>> d85adfbeea761b6db2c5b0d52602bafb30e1995c
