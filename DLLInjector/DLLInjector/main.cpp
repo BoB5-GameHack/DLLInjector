@@ -4,7 +4,6 @@
 #include <TlHelp32.h>
 
 #define TARGET L"S1GameProtected.exe"
-#define DLL_PATH L"D:\\HackDLL.dll"
 
 typedef struct Param {
 	FARPROC loadLibrary;
@@ -22,7 +21,12 @@ void InjectFunction(LPVOID lpParam) {
 
 DWORD GetPidByProcessName(WCHAR *name);
 
-int main() {
+int wmain(int argc, WCHAR *argv[]) {
+	if (argc < 2) {
+		printf("USAGE : DLLInjector DLLNAME");
+		return 1;
+	}
+
 	SIZE_T written;
 	int dataSize = -1;
 	unsigned char* data = (unsigned char *)InjectFunction;
@@ -36,7 +40,7 @@ int main() {
 	PARAM param;
 	HMODULE hMod = LoadLibraryW(L"Kernel32.dll");
 	param.loadLibrary = GetProcAddress(hMod, "LoadLibraryW");
-	wcscpy(param.dllName, DLL_PATH);
+	wcscpy(param.dllName, argv[1]);
 
 	LPVOID vAddr = VirtualAllocEx(hProcess, NULL, dataSize, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	LPVOID argAddr = VirtualAllocEx(hProcess, NULL, sizeof(PARAM), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
@@ -47,7 +51,6 @@ int main() {
 	WriteProcessMemory(hProcess, vAddr, data, dataSize + 1, &written);
 	WriteProcessMemory(hProcess, argAddr, (unsigned char *)&param, sizeof(param), &written);
 
-	system("pause");
 	CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)vAddr, argAddr, 0, NULL);
 
 	return 0;
